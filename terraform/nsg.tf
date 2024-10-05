@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "gl_nsg" {
   name                = "nsg-${var.project}"
-  location            = azurerm_resource_group.gl_rg.location
-  resource_group_name = azurerm_resource_group.gl_rg.name
+  location            = data.azurerm_resource_group.gl_rg.location
+  resource_group_name = data.azurerm_resource_group.gl_rg.name
 
   security_rule {
     name                       = "SSH"
@@ -26,10 +26,6 @@ resource "azurerm_network_security_group" "gl_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-  depends_on = [
-    azurerm_resource_group.gl_rg
-  ]
 }
 
 resource "azurerm_network_interface_security_group_association" "gl_nic_nsg" {

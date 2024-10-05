@@ -1,7 +1,7 @@
 resource "azurerm_network_interface" "gl_nic" {
   name                = "nic-${var.project}"
-  location            = azurerm_resource_group.gl_rg.location
-  resource_group_name = azurerm_resource_group.gl_rg.name
+  location            = data.azurerm_resource_group.gl_rg.location
+  resource_group_name = data.azurerm_resource_group.gl_rg.name
 
   ip_configuration {
     name                          = "nic-ipconfig-${var.project}"
@@ -11,7 +11,6 @@ resource "azurerm_network_interface" "gl_nic" {
   }
 
   depends_on = [
-    azurerm_resource_group.gl_rg,
     azurerm_subnet.gl_subnet,
     azurerm_public_ip.gl_pip
   ]
